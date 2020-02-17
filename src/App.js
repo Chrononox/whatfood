@@ -21,8 +21,9 @@ class App extends React.Component{
     }
   }
 
+
   onUrlChange = (event) =>{
-    console.log(event.target.value);
+    //console.log(event.target.value);
     this.setState({url: event.target.value})
   }
 
@@ -36,7 +37,17 @@ class App extends React.Component{
         this.state.foods.push(item)
       })
     })
+    .then(() => this.state.thing = this.foo())
     .catch(err => console.log(`X.X error is ${err}`))
+
+    // this.state.foods.map(food =>{
+    //   console.log(food.name)
+    //   console.log(food.value)
+    // })
+  }
+
+  foo = () => {
+    this.state.foods.map(food => console.log(food.name, food.value))
   }
 
   render(){
@@ -50,7 +61,8 @@ class App extends React.Component{
         </div>
         
         <Display url={this.state.url}/>
-        <Readout foods={this.state.foods}/>
+        {/* <Readout foods={this.state.foods}/> */}
+        {/* {this.state.foo.map(foos => (<p>{foos}</p>))} */}
       </div>
       
     )
