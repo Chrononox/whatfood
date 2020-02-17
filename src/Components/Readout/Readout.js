@@ -8,7 +8,7 @@ const Readout = ({ foods }) =>{
 
 
     return(
-        <ul>
+        <ul className="center">
           {foods.map(food => <li key={food.value}>{food.name} ~{food.value.toFixed(4)}%</li>)}
         </ul>
     )
