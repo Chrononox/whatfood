@@ -16,39 +16,30 @@ class App extends React.Component{
   constructor(){
     super();
     this.state = {
+      input: '',
       url: '',
       foods: [],
+      route: 'input',
     }
   }
 
 
   onUrlChange = (event) =>{
-    //console.log(event.target.value);
-    this.setState({url: event.target.value})
+    this.setState({input: event.target.value})
   }
 
   onButtonClick = () =>{
     //add check for empty url
-    app.models.predict("bd367be194cf45149e75f01d59f77ba7", this.state.url)
+    this.setState({url: this.state.input})
+    app.models.predict("bd367be194cf45149e75f01d59f77ba7", this.state.input)
     .then(response => {
-      //console.log(response.outputs[0].data.concepts)
       response.outputs[0].data.concepts.map((item, index) =>{
-        //console.log(`${item.name} @ ${item.value}%`)
-        this.state.foods.push(item)
+        this.state.foods.push(item)        
       })
-    })
-    .then(() => this.state.thing = this.foo())
+    }).then(() => this.setState({route: 'display'}))
     .catch(err => console.log(`X.X error is ${err}`))
-
-    // this.state.foods.map(food =>{
-    //   console.log(food.name)
-    //   console.log(food.value)
-    // })
   }
 
-  foo = () => {
-    this.state.foods.map(food => console.log(food.name, food.value))
-  }
 
   render(){
     return(
@@ -60,9 +51,12 @@ class App extends React.Component{
           <Button onButtonClick={this.onButtonClick}/>
         </div>
         
-        <Display url={this.state.url}/>
-        {/* <Readout foods={this.state.foods}/> */}
-        {/* {this.state.foo.map(foos => (<p>{foos}</p>))} */}
+        <Display input={this.state.input}/>
+        
+        { this.state.route === 'display' 
+        ? <Readout foods={this.state.foods}/>
+        :<div></div> }
+        
       </div>
       
     )

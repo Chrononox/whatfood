@@ -5,10 +5,12 @@ import React from 'react'
 
 const Readout = ({ foods }) =>{
 
+
+
     return(
-        <div>
-          {foods.map(food =>(<p>{food}</p>))}  
-        </div>
+        <ul>
+          {foods.map(food => <li key={food.value}>{food.name} ~{food.value.toFixed(4)}%</li>)}
+        </ul>
     )
 }
 
