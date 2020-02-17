@@ -43,19 +43,20 @@ class App extends React.Component{
 
   render(){
     return(
-      <div>
+      <div className='body'>
         <h1>What Food?</h1>
         <p>Is that food? What food?</p>
-        <div>
-          <Input onUrlChange={this.onUrlChange}/>
+        <div className='input ba br4 shadow-3'>
+          <Input className="" onUrlChange={this.onUrlChange}/>
           <Button onButtonClick={this.onButtonClick}/>
         </div>
+        <div className='display'>
+          <Display className=' grow dib f3-ns no-underline black-90 pa5' input={this.state.input}/>        
+          { this.state.route === 'display' 
+          ? <Readout foods={this.state.foods}/>
+          :<div></div> }
+        </div>
         
-        <Display input={this.state.input}/>
-        
-        { this.state.route === 'display' 
-        ? <Readout foods={this.state.foods}/>
-        :<div></div> }
         
       </div>
       
